@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JetpackGame
 {
-    class Spike
+    class Spike //Logan Cole
     {
     }
 }

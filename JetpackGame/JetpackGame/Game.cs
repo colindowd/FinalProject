@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace JetpackGame
 {
-    public partial class Game : Form
+    public partial class Game : Form //Logan Cole
     {
         public Game()
         {
