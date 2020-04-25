@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace JetpackGame
 {
-    class Character : PictureBox
+    public partial class Character : PictureBox
     {
         public int FuelCapacity { get; set; }
         public int Fuel { get; set; }

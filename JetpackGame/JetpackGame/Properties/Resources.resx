@@ -121,4 +121,10 @@
   <data name="Character" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Character.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Rocket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FAVPNG_rocket-launcher-spacecraft-clip-art_qdA1g8nV.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Spike" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngkey.com-spike-png-2343205.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

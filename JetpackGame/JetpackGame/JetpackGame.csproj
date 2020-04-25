@@ -97,5 +97,11 @@
   <ItemGroup>
     <None Include="Resources\Character.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FAVPNG_rocket-launcher-spacecraft-clip-art_qdA1g8nV.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pngkey.com-spike-png-2343205.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

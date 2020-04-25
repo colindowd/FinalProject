@@ -28,19 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.StartButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // GameTimer
+            // 
+            this.GameTimer.Interval = 10;
+            this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
+            // 
+            // StartButton
+            // 
+            this.StartButton.Location = new System.Drawing.Point(443, 491);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(101, 46);
+            this.StartButton.TabIndex = 0;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // Game
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1434, 621);
+            this.ClientSize = new System.Drawing.Size(2868, 1194);
+            this.Controls.Add(this.StartButton);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Game";
             this.Text = "Game";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_KeyDown);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer GameTimer;
+        private System.Windows.Forms.Button StartButton;
     }
 }
