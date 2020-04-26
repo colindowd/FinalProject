@@ -18,6 +18,7 @@ namespace JetpackGame
         private FuelTank FuelTank { get; set; }
         private Rocket Rocket { get; set; }
         private Token Token { get; set; }
+        private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
 
         public Game()
         {
@@ -37,13 +38,36 @@ namespace JetpackGame
         {
             //Rocket
             Rocket.Left -= 20; //Moves the Rocket every tick.
-            if (Rocket.Left <= 1)
+            if (Rocket.HitTest(Player.Bounds) == true) //If the rocket hits the Player:
+            {
+                Player.DamageByRocket();
+                Rocket.Hide();
+                Controls.Remove(Rocket);
+                System.Threading.Thread.Sleep(3000); ; //Not sure if this works, I'm trying to delay this 3 seconds. 
+                Controls.Add(Rocket);
+                Rocket.Shoot();
+            }
+            if (Rocket.Left <= 1) //If the rocket reaches the side of the form:
             {
                 Rocket.Hide();
-                Rocket.Shoot();
                 Controls.Remove(Rocket);
+                System.Threading.Thread.Sleep(3000); ; //Not sure if this works, I'm trying to delay this 3 seconds. 
+                Controls.Add(Rocket);
+                Rocket.Shoot();
             }
             //Spikes
+            int useSpike = randomGenerator.Next(1, 200);
+            if (useSpike == 1) //This should activate a spike randomly, but average one every 2 seconds. 
+            {
+                ActivateSpike();
+            }
+            //Player
+
+            //HealthPack
+
+            //FuelTank
+
+            //Token
 
         }
         protected override bool ProcessDialogKey(Keys keyData)
@@ -69,14 +93,21 @@ namespace JetpackGame
                 return false;
             }
         }
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            GameTimer.Enabled = true;
+        }
         public void RenderOutput() //Is this necessary?
         {
 
         }
 
-        private void StartButton_Click(object sender, EventArgs e)
+        public void ActivateSpike()
         {
-            GameTimer.Enabled = true;
+            Spike spike = new Spike(Height, Width);
+            Spikes.Add(spike);
+            Controls.Add(spike);
+            Spikes[Spikes.Count - 1].Show();
         }
     }
 }
