@@ -25,5 +25,12 @@ namespace JetpackGame
         {
             return Bounds.IntersectsWith(bounds);
         }
+        public void ActivateHealth()
+        {
+            randomGenerator = new Random();
+            Top = randomGenerator.Next(0, 661);
+            Left = 1450;
+        }
+
     }
 }

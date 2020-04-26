@@ -73,12 +73,20 @@ namespace JetpackGame
                 }
             }
             //Player
+            if (HealthPack.HitTest(Player.Bounds))
+            {
+                int health = randomGenerator.Next(1, 1000);
+                if (health == 1) //This should activate a spike randomly, but average one every 2 seconds. 
+                {
+                    HealthPack.ActivateHealth();
+                }
+                Player.IncreaseHealth();
+            }
+            HealthPack.MoveHealthPack();
 
-            //HealthPack
+            FuelTank.MoveFuelTank();
 
-            //FuelTank
-
-            //Token
+            Token.MoveToken();
 
         }
         protected override bool ProcessDialogKey(Keys keyData)
