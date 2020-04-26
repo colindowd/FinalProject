@@ -12,8 +12,10 @@ namespace JetpackGame
 {
     public partial class Game : Form //Logan Cole
     {
+        private int score = 0;
         private Character Player { get; set; }
         private List<Spike> Spikes { get; set; }
+        private List<Token> Tokens { get; set; }
         private HealthPack HealthPack { get; set; }
         private FuelTank FuelTank { get; set; }
         private Rocket Rocket { get; set; }
@@ -28,6 +30,7 @@ namespace JetpackGame
         {
             Player = new Character();
             Spikes = new List<Spike>();
+            Tokens = new List<Token>();
             HealthPack = new HealthPack();
             FuelTank = new FuelTank();
             Rocket = new Rocket(Height, Width);
@@ -102,7 +105,16 @@ namespace JetpackGame
             }
             //Token
             int tokenRand = randomGenerator.Next(1, 100);
-            if (Token.HitTest(Player.Bounds) && HealthPack.Visible)
+            for (int i = 0; i < Tokens.Count; i++)
+            {
+                if (Tokens[i].HitTest(Player.Bounds) == true) //If any laser hits the Enemy, the score goes up, enemy is reset and the laser is removed.
+                {
+                    Tokens[i].Hide();
+                    Tokens.Remove(Tokens[i]);
+                    score++;
+                }
+            }
+            if (Token.HitTest(Player.Bounds) && Token.Visible)
             {
                 Player.IncreaseFuel();
                 FuelTank.Hide();
