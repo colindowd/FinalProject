@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace JetpackGame
 {
-    public partial class Spike : PictureBox //Logan Cole
+    public class Spike : PictureBox //Logan Cole
     {
         public int DamageDealt { get; set; }
         public bool IsVisible { get; set; }

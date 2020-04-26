@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace JetpackGame
 {
-    class HealthPack : PictureBox       //Colin Dowd
+    public class HealthPack : PictureBox       //Colin Dowd
     {
         public static Random randomGenerator { get; set; }
         public HealthPack()

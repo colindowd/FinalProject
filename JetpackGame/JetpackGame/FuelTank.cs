@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace JetpackGame
 {
-    class FuelTank : PictureBox     //Colin Dowd
+    public class FuelTank : PictureBox     //Colin Dowd
     {
         public static Random randomGenerator { get; set; }
         public FuelTank()

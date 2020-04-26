@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace JetpackGame
 {
 
-    class Token : PictureBox        //Colin Dowd
+    public class Token : PictureBox        //Colin Dowd
     {
         public static Random randomGenerator { get; set; }
         public Token()
