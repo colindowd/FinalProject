@@ -40,9 +40,9 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(443, 491);
+            this.StartButton.Location = new System.Drawing.Point(1350, 850);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(101, 46);
+            this.StartButton.Size = new System.Drawing.Size(100, 50);
             this.StartButton.TabIndex = 0;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
