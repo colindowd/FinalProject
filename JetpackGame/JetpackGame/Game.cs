@@ -21,6 +21,7 @@ namespace JetpackGame
         private Rocket Rocket { get; set; }
         private Token Token { get; set; }
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
+        private bool isFlying = false;
 
         public Game()
         {
@@ -84,6 +85,11 @@ namespace JetpackGame
                 }
             }
             //Player
+            if (!isFlying)
+            {
+                Player.Fall();
+            }
+            isFlying = false;
             //HealthPack
             int healthRand = randomGenerator.Next(1, 1000);
             if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
@@ -146,6 +152,7 @@ namespace JetpackGame
                 switch (keyData)
                 {
                     case Keys.Space:
+                        isFlying = true;
                         Player.Fly();
                         return true;
                     default:
