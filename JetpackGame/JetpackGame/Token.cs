@@ -26,5 +26,11 @@ namespace JetpackGame
         {
             return Bounds.IntersectsWith(bounds);
         }
+        public void ResetToken()
+        {
+            randomGenerator = new Random();
+            Top = randomGenerator.Next(0, 1000);
+            Left = 1500;
+        }
     }
 }

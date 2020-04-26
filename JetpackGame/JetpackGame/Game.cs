@@ -73,6 +73,8 @@ namespace JetpackGame
                     Player.DamageBySpike();
                 }
             }
+            //Player
+
             //HealthPack
             int healthRand = randomGenerator.Next(1, 1000);
             if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
@@ -117,15 +119,15 @@ namespace JetpackGame
             if (Token.HitTest(Player.Bounds) && Token.Visible)
             {
                 Player.IncreaseFuel();
-                FuelTank.Hide();
+                Token.Hide();
             }
             else if (fuelRand == 1)
             {
-                FuelTank.ResetFuel();
+                Token.ResetToken();
             }
             else
             {
-                HealthPack.MoveHealthPack();
+                Token.MoveToken();
             }
         }
         protected override bool ProcessDialogKey(Keys keyData)
@@ -134,15 +136,11 @@ namespace JetpackGame
             {
                 switch (keyData)
                 {
-                    case Keys.Left: 
-                        return true;
-                    case Keys.Right:
-                        return true;
-                    case Keys.Up:
-                        return true;
-                    case Keys.Down:
+                    case Keys.Space:
+                        Player.Fly();
                         return true;
                     default:
+                        Player.Fall();
                         return false;
                 }
             }

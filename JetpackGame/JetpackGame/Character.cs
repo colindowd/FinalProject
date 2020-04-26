@@ -28,7 +28,17 @@ namespace JetpackGame
         }
         public void Fly()
         {
-            Top += 3;
+            if(Top > 0)
+            {
+                Top += 3;
+            }
+        }
+        public void Fall()
+        {
+            if(Top < 1000)
+            {
+                Top -= 3;
+            }
         }
         public void IncreaseHealth()
         {
