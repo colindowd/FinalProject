@@ -17,15 +17,18 @@ namespace JetpackGame
         {
             top = Top;
             left = Left;
-            Top = randomGenerator.Next(0, 800); //Max value of form height needed
+            Top = randomGenerator.Next(0, 800);
             Left = 1500;
             Image = Properties.Resources.Rocket;
+            Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Size = new System.Drawing.Size(300, 50);
+            Size = new System.Drawing.Size(150, 30);
         }
         public void Shoot()
         {
             Show();
+            Top = randomGenerator.Next(0, 800);
+            Left = 1500;
         }
 
         public bool HitTest(Rectangle bounds)

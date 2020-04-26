@@ -15,21 +15,25 @@ namespace JetpackGame
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         public Spike(int top, int left)
         {
-            int topOrBottom = randomGenerator.Next(1, 2);
+            top = Top;
+            left = Left;
+            int spikeHeight = randomGenerator.Next(100, 400);
             Image = Properties.Resources.Spike;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Size = new System.Drawing.Size(200, 50); //Randomly decides what the height of the spike is? 
-            if (topOrBottom == 1) //Does this need added to the ActivateSpike Method?
-            {
-                Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
-                Top = 0;
-                Left = 1500;
-            }
-            else if (topOrBottom == 2)
-            {
-                Top = 1000 - 200;
-                Left = 1500; 
-            }
+            Size = new System.Drawing.Size(100, spikeHeight); //Randomly decides what the height of the spike is. 
+        }
+        public void TopSpike()
+        {
+            Show();
+            Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            Top = 0;
+            Left = 1500;
+        }
+        public void BottomSpike()
+        {
+            Show();
+            Top = 1000 - Height;
+            Left = 1500;
         }
 
         public bool HitTest(Rectangle bounds)

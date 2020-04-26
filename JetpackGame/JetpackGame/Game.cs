@@ -36,11 +36,12 @@ namespace JetpackGame
             Rocket = new Rocket(Height, Width);
             Token = new Token();
             Controls.Add(Player);
+            Controls.Add(Rocket);
         }
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             //Rocket
-            Rocket.Left -= 20; //Moves the Rocket every tick.
+            Rocket.Left -= 10; //Moves the Rocket every tick.
             if (Rocket.HitTest(Player.Bounds) == true) //If the rocket hits the Player:
             {
                 Player.DamageByRocket();
@@ -53,14 +54,25 @@ namespace JetpackGame
                 Rocket.Shoot();
             }
             //Spikes
-            int useSpike = randomGenerator.Next(1, 200);
-            if (useSpike == 1) //This should activate a spike randomly, but average one every 2 seconds. 
+            int spikeRand = randomGenerator.Next(1, 100);
+            if (spikeRand == 1) 
             {
-                ActivateSpike();
+                ActivateTopSpike();
+            }
+            if (spikeRand == 2) 
+            {
+                ActivateBottomSpike();
             }
             for (int i = 0; i < Spikes.Count; i++) //Moves the spikes constantly to the left. 
             {
                 Spikes[i].Left -= 5;
+                //for (int j = 0; j < Spikes.Count; j++)
+                //{
+                //    if (Spikes[i].HitTest(Spikes[j].Bounds) == true)
+                //    {
+                //        Spikes[i].Hide();
+                //    }
+                //}
             }
             for (int i = 0; i < Spikes.Count; i++)
             {
@@ -151,12 +163,19 @@ namespace JetpackGame
         {
             GameTimer.Enabled = true;
         }
-        public void ActivateSpike()
+        public void ActivateTopSpike()
         {
-            Spike spike = new Spike(Height, Width);
-            Spikes.Add(spike);
-            Controls.Add(spike);
-            Spikes[Spikes.Count - 1].Show();
+            Spike spike1 = new Spike(Height, Width);
+            Spikes.Add(spike1);
+            Controls.Add(spike1);
+            Spikes[Spikes.Count - 1].TopSpike();
+        }
+        public void ActivateBottomSpike()
+        {
+            Spike spike2 = new Spike(Height, Width);
+            Spikes.Add(spike2);
+            Controls.Add(spike2);
+            Spikes[Spikes.Count - 1].BottomSpike();
         }
     }
 }
