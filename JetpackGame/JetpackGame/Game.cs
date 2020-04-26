@@ -72,7 +72,6 @@ namespace JetpackGame
                 }
             }
             //Player
-
             //HealthPack
             int healthRand = randomGenerator.Next(1, 1000);
             if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
@@ -139,10 +138,9 @@ namespace JetpackGame
                         return true;
                     default:
                         Player.Fall();
-                        return false;
+                        return true;
                 }
-            }
-            else
+            } else
             {
                 return false;
             }
