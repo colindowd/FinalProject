@@ -23,7 +23,7 @@ namespace JetpackGame
         }
         public void Shoot()
         {
-            Task.Delay(3000); //Not sure if this works, should delay this method 3 seconds. 
+            Task.Delay(3000); //Not sure if this works, I'm trying to delay this method 3 seconds. 
             Controls.Add(this);
             Show();
             Top = randomGenerator.Next(0, 1000); //Max value of form height needed

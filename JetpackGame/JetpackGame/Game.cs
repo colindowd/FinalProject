@@ -52,11 +52,13 @@ namespace JetpackGame
             {
                 switch (keyData)
                 {
-                    case Keys.Left: //I.e., if the left arrow is pressed, then do this:
+                    case Keys.Left: 
                         return true;
                     case Keys.Right:
                         return true;
-                    case Keys.Space:
+                    case Keys.Up:
+                        return true;
+                    case Keys.Down:
                         return true;
                     default:
                         return false;
