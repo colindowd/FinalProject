@@ -15,8 +15,10 @@ namespace JetpackGame
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         public Rocket(int top, int left)
         {
-            Top = randomGenerator.Next(0, 1000); //Max value of form height needed
-            Left = 0; //Max value of form width
+            top = Top;
+            left = Left;
+            Top = randomGenerator.Next(0, 800); //Max value of form height needed
+            Left = 1500;
             Image = Properties.Resources.Rocket;
             SizeMode = PictureBoxSizeMode.StretchImage;
             Size = new System.Drawing.Size(300, 50);
@@ -24,8 +26,6 @@ namespace JetpackGame
         public void Shoot()
         {
             Show();
-            Top = randomGenerator.Next(0, 1000); //Max value of form height needed
-            Left = 0; //Max value of form width
         }
 
         public bool HitTest(Rectangle bounds)

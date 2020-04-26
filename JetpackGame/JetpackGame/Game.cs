@@ -45,17 +45,11 @@ namespace JetpackGame
             {
                 Player.DamageByRocket();
                 Rocket.Hide();
-                Controls.Remove(Rocket);
-                System.Threading.Thread.Sleep(3000); ; //Not sure if this works, I'm trying to delay this 3 seconds. 
-                Controls.Add(Rocket);
                 Rocket.Shoot();
             }
             if (Rocket.Left <= 1) //If the rocket reaches the side of the form:
             {
                 Rocket.Hide();
-                Controls.Remove(Rocket);
-                System.Threading.Thread.Sleep(3000); ; //Not sure if this works, I'm trying to delay this 3 seconds. 
-                Controls.Add(Rocket);
                 Rocket.Shoot();
             }
             //Spikes
@@ -63,6 +57,10 @@ namespace JetpackGame
             if (useSpike == 1) //This should activate a spike randomly, but average one every 2 seconds. 
             {
                 ActivateSpike();
+            }
+            for (int i = 0; i < Spikes.Count; i++) //Moves the spikes constantly to the left. 
+            {
+                Spikes[i].Left -= 5;
             }
             for (int i = 0; i < Spikes.Count; i++)
             {
@@ -155,11 +153,6 @@ namespace JetpackGame
         {
             GameTimer.Enabled = true;
         }
-        public void RenderOutput() //Is this necessary?
-        {
-
-        }
-
         public void ActivateSpike()
         {
             Spike spike = new Spike(Height, Width);
