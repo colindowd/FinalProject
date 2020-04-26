@@ -61,6 +61,15 @@ namespace JetpackGame
             {
                 ActivateSpike();
             }
+            for (int i = 0; i < Spikes.Count; i++)
+            {
+                if (Spikes[i].HitTest(Player.Bounds) == true) //If any laser hits the Enemy, the score goes up, enemy is reset and the laser is removed.
+                {
+                    Spikes[i].Hide();
+                    Spikes.Remove(Spikes[i]);
+                    Player.DamageBySpike();
+                }
+            }
             //Player
 
             //HealthPack
