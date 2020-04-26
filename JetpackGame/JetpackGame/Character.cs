@@ -30,7 +30,7 @@ namespace JetpackGame
         {
             if(Top > 0)
             {
-                Top -= 20;
+                Top -= 30;
                 Fuel--;
             }
         }
@@ -38,7 +38,7 @@ namespace JetpackGame
         {
             if(Top < 800)
             {
-                Top += 10;
+                Top += 3;
             }
         }
         public void IncreaseHealth()
