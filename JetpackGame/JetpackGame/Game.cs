@@ -72,22 +72,51 @@ namespace JetpackGame
                     Player.DamageBySpike();
                 }
             }
-            //Player
-            if (HealthPack.HitTest(Player.Bounds))
+            //HealthPack
+            int healthRand = randomGenerator.Next(1, 1000);
+            if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
             {
-                int health = randomGenerator.Next(1, 1000);
-                if (health == 1) //This should activate a spike randomly, but average one every 2 seconds. 
-                {
-                    HealthPack.ActivateHealth();
-                }
                 Player.IncreaseHealth();
+                HealthPack.Hide();
             }
-            HealthPack.MoveHealthPack();
-
-            FuelTank.MoveFuelTank();
-
-            Token.MoveToken();
-
+            else if (healthRand == 1)
+            {
+                HealthPack.ResetHealth();
+            }
+            else
+            {
+                HealthPack.MoveHealthPack();
+            }
+            //FuelTank
+            int fuelRand = randomGenerator.Next(1, 1000);
+            if (FuelTank.HitTest(Player.Bounds) && FuelTank.Visible)
+            {
+                Player.IncreaseFuel();
+                FuelTank.Hide();
+            }
+            else if (fuelRand == 1)
+            {
+                FuelTank.ResetFuel();
+            }
+            else
+            {
+                HealthPack.MoveHealthPack();
+            }
+            //Token
+            int tokenRand = randomGenerator.Next(1, 100);
+            if (Token.HitTest(Player.Bounds) && HealthPack.Visible)
+            {
+                Player.IncreaseFuel();
+                FuelTank.Hide();
+            }
+            else if (fuelRand == 1)
+            {
+                FuelTank.ResetFuel();
+            }
+            else
+            {
+                HealthPack.MoveHealthPack();
+            }
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {

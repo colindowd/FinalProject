@@ -25,5 +25,12 @@ namespace JetpackGame
         {
             return Bounds.IntersectsWith(bounds);
         }
+        public void ResetFuel()
+        {
+            randomGenerator = new Random();
+            Top = randomGenerator.Next(0, 1000);
+            Left = 2000;
+            Show();
+        }
     }
 }
