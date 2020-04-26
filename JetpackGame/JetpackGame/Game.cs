@@ -12,8 +12,10 @@ namespace JetpackGame
 {
     public partial class Game : Form //Logan Cole & Colin Dowd
     {
+        private int score = 0;
         private Character Player { get; set; }
         private List<Spike> Spikes { get; set; }
+        private List<Token> Tokens { get; set; }
         private HealthPack HealthPack { get; set; }
         private FuelTank FuelTank { get; set; }
         private Rocket Rocket { get; set; }
@@ -28,6 +30,7 @@ namespace JetpackGame
         {
             Player = new Character();
             Spikes = new List<Spike>();
+            Tokens = new List<Token>();
             HealthPack = new HealthPack();
             FuelTank = new FuelTank();
             Rocket = new Rocket(Height, Width);
@@ -70,22 +73,60 @@ namespace JetpackGame
                     Player.DamageBySpike();
                 }
             }
-            //Player
-            if (HealthPack.HitTest(Player.Bounds))
+            //HealthPack
+            int healthRand = randomGenerator.Next(1, 1000);
+            if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
             {
-                int health = randomGenerator.Next(1, 1000);
-                if (health == 1) //This should activate a spike randomly, but average one every 2 seconds. 
-                {
-                    HealthPack.ActivateHealth();
-                }
                 Player.IncreaseHealth();
+                HealthPack.Hide();
             }
-            HealthPack.MoveHealthPack();
-
-            FuelTank.MoveFuelTank();
-
-            Token.MoveToken();
-
+            else if (healthRand == 1)
+            {
+                HealthPack.ResetHealth();
+            }
+            else
+            {
+                HealthPack.MoveHealthPack();
+            }
+            //FuelTank
+            int fuelRand = randomGenerator.Next(1, 1000);
+            if (FuelTank.HitTest(Player.Bounds) && FuelTank.Visible)
+            {
+                Player.IncreaseFuel();
+                FuelTank.Hide();
+            }
+            else if (fuelRand == 1)
+            {
+                FuelTank.ResetFuel();
+            }
+            else
+            {
+                HealthPack.MoveHealthPack();
+            }
+            //Token
+            int tokenRand = randomGenerator.Next(1, 100);
+            for (int i = 0; i < Tokens.Count; i++)
+            {
+                if (Tokens[i].HitTest(Player.Bounds) == true) //If any laser hits the Enemy, the score goes up, enemy is reset and the laser is removed.
+                {
+                    Tokens[i].Hide();
+                    Tokens.Remove(Tokens[i]);
+                    score++;
+                }
+            }
+            if (Token.HitTest(Player.Bounds) && Token.Visible)
+            {
+                Player.IncreaseFuel();
+                FuelTank.Hide();
+            }
+            else if (fuelRand == 1)
+            {
+                FuelTank.ResetFuel();
+            }
+            else
+            {
+                HealthPack.MoveHealthPack();
+            }
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
