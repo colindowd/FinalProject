@@ -18,17 +18,17 @@ namespace JetpackGame
             int topOrBottom = randomGenerator.Next(1, 2);
             Image = Properties.Resources.Spike;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Size = new System.Drawing.Size(randomGenerator.Next(100, 300), 50); //Randomly decides what the height of the spike is. 
+            Size = new System.Drawing.Size(200, 50); //Randomly decides what the height of the spike is? 
             if (topOrBottom == 1) //Does this need added to the ActivateSpike Method?
             {
                 Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
                 Top = 0;
-                Left = randomGenerator.Next(0,0); //Need values
+                Left = 1500;
             }
             else if (topOrBottom == 2)
             {
-                Top = 0; //Need height of form
-                Left = randomGenerator.Next(0,0); //Need values
+                Top = 1000 - 200;
+                Left = 1500; 
             }
         }
 

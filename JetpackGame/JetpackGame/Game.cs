@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace JetpackGame
 {
-    public partial class Game : Form //Logan Cole
+    public partial class Game : Form //Logan Cole & Colin Dowd
     {
         private int score = 0;
         private Character Player { get; set; }
