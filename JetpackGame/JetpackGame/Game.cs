@@ -26,8 +26,6 @@ namespace JetpackGame
         }
         private void Game_Load(object sender, EventArgs e)
         {
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            WindowState = FormWindowState.Maximized;
             Player = new Character();
             Spikes = new List<Spike>();
             HealthPack = new HealthPack();
