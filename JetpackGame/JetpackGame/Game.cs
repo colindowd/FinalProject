@@ -23,14 +23,49 @@ namespace JetpackGame
         {
             InitializeComponent();
         }
-
+        private void Game_Load(object sender, EventArgs e)
+        {
+            Player = new Character();
+            Spikes = new List<Spike>();
+            HealthPack = new HealthPack();
+            FuelTank = new FuelTank();
+            Rocket = new Rocket(Height, Width);
+            Token = new Token();
+            Controls.Add(Player);
+        }
         private void GameTimer_Tick(object sender, EventArgs e)
         {
+            //Rocket
+            Rocket.Left -= 20; //Moves the Rocket every tick.
+            if (Rocket.Left <= 1)
+            {
+                Rocket.Hide();
+                Rocket.Shoot();
+                Controls.Remove(Rocket);
+            }
+            //Spikes
 
         }
-        private void Game_KeyDown(object sender, KeyEventArgs e)
+        protected override bool ProcessDialogKey(Keys keyData)
         {
-
+            if (GameTimer.Enabled == true) //The keys only do anything if the GameTimer is enabled (i.e., if the Start Button has been pushed).
+            {
+                switch (keyData)
+                {
+                    case Keys.Left: //I.e., if the left arrow is pressed, then do this:
+                        return true;
+                    case Keys.Right:
+                        return true;
+                    case Keys.Space:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
         public void RenderOutput() //Is this necessary?
         {
@@ -39,7 +74,7 @@ namespace JetpackGame
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-
+            GameTimer.Enabled = true;
         }
     }
 }

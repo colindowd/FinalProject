@@ -15,11 +15,21 @@ namespace JetpackGame
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         public Spike(int top, int left)
         {
-            Top = 0;
-            Left = 0;
+            int topOrBottom = randomGenerator.Next(1, 2);
             Image = Properties.Resources.Spike;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Size = new System.Drawing.Size(300, 50);
+            Size = new System.Drawing.Size(randomGenerator.Next(100, 300), 50);
+            if (topOrBottom == 1)
+            {
+                Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                Top = 0;
+                Left = randomGenerator.Next(0,0); //Need values
+            }
+            if (topOrBottom == 2)
+            {
+                Top = 0; //Need height of form
+                Left = randomGenerator.Next(0,0); //Need values
+            }
         }
         public void Activate()
         {
