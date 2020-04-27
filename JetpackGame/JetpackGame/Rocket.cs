@@ -10,8 +10,6 @@ namespace JetpackGame
 {
     public class Rocket : PictureBox //Logan Cole
     {
-        public int DamageDealt { get; set; }
-        public bool IsVisible { get; set; }
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         public Rocket(int top, int left)
         {
