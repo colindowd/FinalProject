@@ -34,10 +34,13 @@ namespace JetpackGame
         }
         public void Fly()       //Moves up 25 pixels per tick
         {
-            if(Top > 0)
+            if (Fuel > 0)
             {
-                Top -= 25;
-                Fuel--;
+                if (Top > 0)
+                {
+                    Top -= 25;
+                    Fuel--;
+                }
             }
         }
         public void Fall()      //Moves down 3 pixels per tick

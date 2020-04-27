@@ -98,7 +98,7 @@ namespace JetpackGame
             isFlying = false;
             FuelLabel.Text = Player.Fuel.ToString(); //Makes the FuelLabel work.
             HealthLabel.Text = Player.Health.ToString(); //Makes the HealthLabel work.
-            if (Player.Health == 0 || Player.Fuel == 0) //Ends the game if Fuel or Health reach zero. 
+            if (Player.Health == 0) //Ends the game if Health reaches zero. 
             {
                 GameTimer.Enabled = false;
                 MessageBox.Show("Game Over!");
