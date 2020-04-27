@@ -12,7 +12,6 @@ namespace JetpackGame
 {
     public partial class Game : Form //Logan Cole & Colin Dowd
     {
-        private int score = 0;
         private Character Player { get; set; }
         private List<Spike> Spikes { get; set; }
         private List<Token> Tokens { get; set; }
@@ -22,6 +21,10 @@ namespace JetpackGame
         private Token Token { get; set; }
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         private bool isFlying = false;
+        private int score = 0;
+        
+
+
 
         public Game()
         {
@@ -38,6 +41,8 @@ namespace JetpackGame
             Token = new Token();
             Controls.Add(Player);
             Controls.Add(Rocket);
+            Player.Fuel = 100;
+            Player.Health = 100;
         }
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -87,7 +92,7 @@ namespace JetpackGame
                 if (Spikes[i].Left <=1) 
                 {
                     Spikes[i].Hide();
-                    Controls.Remove(Spikes[1]);
+                    Controls.Remove(Spikes[1]); //Why set to 1?
                     Spikes.Remove(Spikes[i]);
                 }
             }
@@ -97,6 +102,15 @@ namespace JetpackGame
                 Player.Fall();
             }
             isFlying = false;
+            FuelLabel.Text = Player.Fuel.ToString();
+            HealthLabel.Text = Player.Health.ToString();
+            if (Player.Health == 0 || Player.Fuel == 0)
+            {
+                GameTimer.Enabled = false;
+                MessageBox.Show("Game Over!");
+                Application.Exit();
+            }
+
             //HealthPack
             int healthRand = randomGenerator.Next(1, 1000);
             if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
@@ -125,7 +139,7 @@ namespace JetpackGame
             }
             else
             {
-                HealthPack.MoveHealthPack();
+                FuelTank.MoveFuelTank();
             }
             //Token
             int tokenRand = randomGenerator.Next(1, 100);
@@ -158,7 +172,7 @@ namespace JetpackGame
             {
                 switch (keyData)
                 {
-                    case Keys.Space:
+                    case Keys.W:
                         isFlying = true;
                         Player.Fly();
                         return true;
