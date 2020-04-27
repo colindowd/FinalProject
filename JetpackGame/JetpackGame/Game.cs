@@ -163,6 +163,7 @@ namespace JetpackGame
                 switch (keyData)
                 {
                     case Keys.Space:
+                        Player.Jump();
                         isFlying = true;
                         Player.Fly();
                         return true;

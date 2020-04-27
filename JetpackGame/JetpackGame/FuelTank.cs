@@ -14,11 +14,11 @@ namespace JetpackGame
         public FuelTank()
         {
             randomGenerator = new Random();
-            Top = randomGenerator.Next(0, 900);
+            Top = randomGenerator.Next(0, 661);
             Left = 2000;
             Image = Properties.Resources.FuelTank;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Size = new System.Drawing.Size(100, 100);
+            Size = new System.Drawing.Size(50, 50);
         }
         public void MoveFuelTank()
         {
@@ -31,8 +31,8 @@ namespace JetpackGame
         public void ResetFuel()
         {
             randomGenerator = new Random();
-            Top = randomGenerator.Next(0, 800);
-            Left = 1500;
+            Top = randomGenerator.Next(0, 1000);
+            Left = 2000;
             Show();
         }
     }

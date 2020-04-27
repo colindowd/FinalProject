@@ -31,7 +31,7 @@ namespace JetpackGame
         {
             if(Top == 800)
             {
-                Top -= 200;
+                Top -= 250;
             }
         }
         public void Fly()
