@@ -34,10 +34,13 @@ namespace JetpackGame
         }
         public void Fly()
         {
-            if(Top > 0)
+            if (Fuel > 0)
             {
-                Top -= 25;
-                Fuel--;
+                if (Top > 0)
+                {
+                    Top -= 25;
+                    Fuel--;
+                }
             }
         }
         public void Fall()
