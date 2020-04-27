@@ -10,8 +10,6 @@ namespace JetpackGame
 {
     public class Spike : PictureBox //Logan Cole
     {
-        public int DamageDealt { get; set; }
-        public bool IsVisible { get; set; }
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         public Spike(int top, int left)
         {

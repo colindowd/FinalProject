@@ -14,8 +14,6 @@ namespace JetpackGame
         public int Fuel { get; set; }
         public int MaxHealth { get; set; }
         public int Health { get; set; }
-        public bool IsEngineRunning { get; set; }
-        public bool IsAlive { get; set; }
 
         public Character()
         {
