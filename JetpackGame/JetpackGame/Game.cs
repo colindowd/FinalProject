@@ -39,8 +39,8 @@ namespace JetpackGame
             Controls.Add(Rocket);
             Controls.Add(HealthPack);
             Controls.Add(FuelTank);
-            Player.Fuel = 1000;
-            Player.Health = 1000;
+            Player.Fuel = 100;
+            Player.Health = 100;
         }
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -144,7 +144,7 @@ namespace JetpackGame
                     Tokens[i].Hide();
                     Controls.Remove(Tokens[i]);
                     Tokens.Remove(Tokens[i]);
-                    score++;
+                    score += 500;
                 }
                 else if (Tokens[i].Left <= 1)
                 {
@@ -155,6 +155,7 @@ namespace JetpackGame
             }
             //Misc
             ScoreLabel.Text = score.ToString();
+            score++;
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
