@@ -180,7 +180,7 @@ namespace JetpackGame
                 return false;
             }
         }
-        private void StartButton_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)      //Reads any cheat code entered by user and starts timer
         {
             CheatCodeTextBox.Hide();
             CheatCodeLabel.Hide();
@@ -222,7 +222,7 @@ namespace JetpackGame
             Controls.Add(spike2);
             Spikes[Spikes.Count - 1].BottomSpike();
         }
-        public int CheatCodes(string userCode)
+        public int CheatCodes(string userCode)      //Searches through array of valid cheat codes and returns the index of the code that was entered if any
         {
             String[] validCodes = { "Speed", "Slow", "Money", "Juggernaut" };
             for(int i = 0; i < validCodes.Length; i++)

@@ -15,7 +15,7 @@ namespace JetpackGame
         public int MaxHealth { get; set; }
         public int Health { get; set; }
 
-        public Character()
+        public Character()       //Sets attributes for the Character class
         {
             MaxHealth = 100;
             FuelCapacity = 100;
@@ -25,14 +25,14 @@ namespace JetpackGame
             SizeMode = PictureBoxSizeMode.StretchImage;
             Size = new System.Drawing.Size(100, 100);
         }
-        public void Jump()
+        public void Jump()      //Jumps up 250 pixels if on the ground
         {
             if(Top >= 795)
             {
                 Top -= 250;
             }
         }
-        public void Fly()
+        public void Fly()       //Moves up 25 pixels per tick
         {
             if(Top > 0)
             {
@@ -40,14 +40,14 @@ namespace JetpackGame
                 Fuel--;
             }
         }
-        public void Fall()
+        public void Fall()      //Moves down 3 pixels per tick
         {
             if(Top <= 795)
             {
                 Top += 3;
             }
         }
-        public void IncreaseHealth(int healthChange)
+        public void IncreaseHealth(int healthChange)        //Resets health back to max health
         {
             if (Health > 50)
             {
@@ -58,7 +58,7 @@ namespace JetpackGame
                 Health += 50;
             }
         }
-        public void IncreaseFuel(int fuelChange)
+        public void IncreaseFuel(int fuelChange)        //Resets fuel back to max fuel
         {
             if(Fuel > 50)
             {
@@ -68,7 +68,7 @@ namespace JetpackGame
                 Fuel += 50;
             }
         }
-        public void DamageByRocket()
+        public void DamageByRocket()        //Takes 75 damage when hit by rocket
         {
             if(Health < 75)
             {
@@ -78,7 +78,7 @@ namespace JetpackGame
                 Health -= 75;
             }
         }
-        public void DamageBySpike()
+        public void DamageBySpike()     //Takes 25 damage when hit by spike
         {
             if (Health < 25)
             {
