@@ -73,6 +73,26 @@ namespace JetpackGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FuelTank {
+            get {
+                object obj = ResourceManager.GetObject("FuelTank", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HealthPack {
+            get {
+                object obj = ResourceManager.GetObject("HealthPack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Rocket {
             get {
                 object obj = ResourceManager.GetObject("Rocket", resourceCulture);

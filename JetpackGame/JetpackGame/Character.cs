@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,13 @@ namespace JetpackGame
             SizeMode = PictureBoxSizeMode.StretchImage;
             Size = new System.Drawing.Size(100, 100);
         }
+        public void Jump()
+        {
+            if(Top == 800)
+            {
+                Top -= 200;
+            }
+        }
         public void Fly()
         {
             if(Top > 0)
@@ -38,7 +46,7 @@ namespace JetpackGame
         {
             if(Top < 800)
             {
-                Top += 10;
+                Top += 4;
             }
         }
         public void IncreaseHealth()
