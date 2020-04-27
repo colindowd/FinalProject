@@ -14,11 +14,11 @@ namespace JetpackGame
         public HealthPack()
         {
             randomGenerator = new Random();
-            Top = randomGenerator.Next(0, 661);
-            Left = 1450;
+            Top = randomGenerator.Next(0, 900);
+            Left = 2000;
             Image = Properties.Resources.HealthPack;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Size = new System.Drawing.Size(50, 50);
+            Size = new System.Drawing.Size(100, 100);
         }
         public void MoveHealthPack()
         {
@@ -31,8 +31,8 @@ namespace JetpackGame
         public void ResetHealth()
         {
             randomGenerator = new Random();
-            Top = randomGenerator.Next(0, 661);
-            Left = 2000;
+            Top = randomGenerator.Next(0, 800);
+            Left = 1500;
             Show();
         }
 
