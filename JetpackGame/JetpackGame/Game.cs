@@ -10,27 +10,27 @@ using System.Windows.Forms;
 
 namespace JetpackGame
 {
-    public partial class Game : Form //Logan Cole & Colin Dowd
+    public partial class Game : Form //This class creates the Game form and runs the game and all of its mechanics. - Logan Cole & Colin Dowd
     {
-        private Character Player { get; set; }
-        private List<Spike> Spikes { get; set; }
-        private List<Token> Tokens { get; set; }
-        private HealthPack HealthPack { get; set; }
-        private FuelTank FuelTank { get; set; }
-        private Rocket Rocket { get; set; }
+        private Character Player { get; set; } //Creates the Player.
+        private List<Spike> Spikes { get; set; } //Creates the list of Spikes.
+        private List<Token> Tokens { get; set; } //Creates the list of Tokens.
+        private HealthPack HealthPack { get; set; } //Creates the HealthPack.
+        private FuelTank FuelTank { get; set; } //Creates the FuelTank.
+        private Rocket Rocket { get; set; } //Creates the Rocket.
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
-        private bool isFlying = false;
-        private int score = 0;
-        private int speedChange = 0;
-        private int tokenChange = 0;
-        private int healthChange = 0;
-        private int fuelChange = 0;
+        private bool isFlying = false; //Creates isFlying property.
+        private int score = 0; //Creates score property.
+        private int speedChange = 0; //Creates speedChange property.
+        private int tokenChange = 0; //Creates tokenChange property.
+        private int healthChange = 0; //Creates healthChange property.
+        private int fuelChange = 0; //Creates fuelChange property.
 
-        public Game()
+        public Game() //Creates Game constructor. 
         {
             InitializeComponent();
         }
-        private void Game_Load(object sender, EventArgs e)
+        private void Game_Load(object sender, EventArgs e) //This all occurs when the game is loaded. This creates and adds objects to the game. 
         {
             Player = new Character();
             Spikes = new List<Spike>();
@@ -45,7 +45,7 @@ namespace JetpackGame
             Player.Fuel = 100 + fuelChange;
             Player.Health = 100 + healthChange;
         }
-        private void GameTimer_Tick(object sender, EventArgs e)
+        private void GameTimer_Tick(object sender, EventArgs e) //All of this happens every tick (10ms)
         {
             //Rocket
             Rocket.Left -= 10; //Moves the Rocket every tick.
@@ -61,7 +61,7 @@ namespace JetpackGame
                 Rocket.Shoot();
             }
             //Spikes
-            int spikeRand = randomGenerator.Next(1, 100);
+            int spikeRand = randomGenerator.Next(1, 100); //Should generate a spike approx twice a second.
             if (spikeRand == 1) 
             {
                 ActivateTopSpike();
@@ -73,38 +73,31 @@ namespace JetpackGame
             for (int i = 0; i < Spikes.Count; i++) //Moves the spikes constantly to the left. 
             {
                 Spikes[i].Left -= 5 + speedChange;
-                //for (int j = 0; j < Spikes.Count; j++)
-                //{
-                //    if (Spikes[i].HitTest(Spikes[j].Bounds) == true)
-                //    {
-                //        Spikes[i].Hide();
-                //    }
-                //}
             }
             for (int i = 0; i < Spikes.Count; i++)
             {
-                if (Spikes[i].HitTest(Player.Bounds) == true) 
+                if (Spikes[i].HitTest(Player.Bounds) == true) //If the spike hits the Player:
                 {
                     Spikes[i].Hide();
                     Controls.Remove(Spikes[i]);
                     Spikes.Remove(Spikes[i]);
                     Player.DamageBySpike();
                 }
-                else if (Spikes[i].Left <=1) 
+                else if (Spikes[i].Left <=1) //If the spike reaches the side of the form:
                 {
                     Spikes[i].Hide();
-                    Controls.Remove(Spikes[i]); //Why set to 1?
+                    Controls.Remove(Spikes[i]); 
                     Spikes.Remove(Spikes[i]);
                 }
             }
             //Player
-            if (!isFlying)
+            if (!isFlying) //Makes the player fall if it is not f;ying. 
             {
                 Player.Fall();
             }
             isFlying = false;
-            FuelLabel.Text = Player.Fuel.ToString();
-            HealthLabel.Text = Player.Health.ToString();
+            FuelLabel.Text = Player.Fuel.ToString(); //Makes the FuelLabel work.
+            HealthLabel.Text = Player.Health.ToString(); //Makes the HealthLabel work.
             if (Player.Health == 0 || Player.Fuel == 0) //Ends the game if Fuel or Health reach zero. 
             {
                 GameTimer.Enabled = false;
@@ -112,53 +105,53 @@ namespace JetpackGame
                 Application.Exit();
             }
             //HealthPack
-            HealthPack.MoveHealthPack();
-            if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
+            HealthPack.MoveHealthPack(); //Moves the healthpack every tick. 
+            if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible) //If the healthpack hits the player:
             {
                 Player.IncreaseHealth(healthChange);
                 HealthPack.ResetHealth();
             }
-            else if (HealthPack.Left <=1)
+            else if (HealthPack.Left <=1) //If the healthpack reaches the side of the form:
             {
                 HealthPack.ResetHealth();
             }
             //FuelTank
-            FuelTank.MoveFuelTank();
-            if (FuelTank.HitTest(Player.Bounds) && FuelTank.Visible)
+            FuelTank.MoveFuelTank(); //Moves the fueltank every tick.
+            if (FuelTank.HitTest(Player.Bounds) && FuelTank.Visible) //If the fueltank hits the player:
             {
                 Player.IncreaseFuel(fuelChange);
                 FuelTank.ResetFuel();
             }
-            else if (FuelTank.Left <= 1)
+            else if (FuelTank.Left <= 1) //If the fueltank reaches the side of the form:
             {
                 FuelTank.ResetFuel();
             }
             //Token
             int tokenRand = randomGenerator.Next(1, 100 - tokenChange);
-            if (tokenRand == 1)
+            if (tokenRand == 1) //Should generate one token approx every second.
             {
                 ActivateToken();
             }
             for (int i = 0; i < Tokens.Count; i++)
             {
-                Tokens[i].MoveToken();
-                if (Tokens[i].HitTest(Player.Bounds) == true)
+                Tokens[i].MoveToken(); //Moves each token every tick.
+                if (Tokens[i].HitTest(Player.Bounds) == true) //If a token hits the player:
                 {
                     Tokens[i].Hide();
                     Controls.Remove(Tokens[i]);
                     Tokens.Remove(Tokens[i]);
                     score += 500;
                 }
-                else if (Tokens[i].Left <= 1)
+                else if (Tokens[i].Left <= 1) //If the token reaches the left side of the screen:
                 {
                     Tokens[i].Hide();
-                    Controls.Remove(Tokens[i]); //Why set to 1?
+                    Controls.Remove(Tokens[i]);
                     Tokens.Remove(Tokens[i]);
                 }
             }
             //Misc
-            ScoreLabel.Text = score.ToString();
-            score++;
+            ScoreLabel.Text = score.ToString(); //Makes the score label work. 
+            score++; //Increases score every tick.
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
@@ -201,21 +194,21 @@ namespace JetpackGame
                 fuelChange = 900;
             }
         }
-        public void ActivateToken()
+        public void ActivateToken() //This activates a new token when called. 
         {
             Token token = new Token(Height, Width);
             Tokens.Add(token);
             Controls.Add(token);
             Tokens[Tokens.Count - 1].ResetToken();
         }
-        public void ActivateTopSpike()
+        public void ActivateTopSpike() //This activates a top spike when called.
         {
             Spike spike1 = new Spike(Height, Width);
             Spikes.Add(spike1);
             Controls.Add(spike1);
             Spikes[Spikes.Count - 1].TopSpike();
         }
-        public void ActivateBottomSpike()
+        public void ActivateBottomSpike() //This activates a bottom spike when called.
         {
             Spike spike2 = new Spike(Height, Width);
             Spikes.Add(spike2);

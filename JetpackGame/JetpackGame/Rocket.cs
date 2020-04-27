@@ -11,7 +11,7 @@ namespace JetpackGame
     public class Rocket : PictureBox //Logan Cole
     {
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
-        public Rocket(int top, int left)
+        public Rocket(int top, int left) //Rocket constructor. 
         {
             top = Top;
             left = Left;
@@ -22,14 +22,14 @@ namespace JetpackGame
             SizeMode = PictureBoxSizeMode.StretchImage;
             Size = new System.Drawing.Size(150, 30);
         }
-        public void Shoot()
+        public void Shoot() //Fires the rocket when called. 
         {
             Show();
             Top = randomGenerator.Next(0, 800);
             Left = 1500;
         }
 
-        public bool HitTest(Rectangle bounds)
+        public bool HitTest(Rectangle bounds) //Tests to see if the rocket is touching anything. 
         {
             return Bounds.IntersectsWith(bounds);
         }
