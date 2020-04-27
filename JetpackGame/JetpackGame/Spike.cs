@@ -17,7 +17,7 @@ namespace JetpackGame
         {
             top = Top;
             left = Left;
-            int spikeHeight = randomGenerator.Next(100, 400);
+            int spikeHeight = randomGenerator.Next(100, 350);
             Image = Properties.Resources.Spike;
             SizeMode = PictureBoxSizeMode.StretchImage;
             Size = new System.Drawing.Size(100, spikeHeight); //Randomly decides what the height of the spike is. 

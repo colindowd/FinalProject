@@ -22,7 +22,7 @@ namespace JetpackGame
             MaxHealth = 100;
             FuelCapacity = 100;
             Top = 800;
-            Left = 0;
+            Left = 200;
             Image = Properties.Resources.Character;
             SizeMode = PictureBoxSizeMode.StretchImage;
             Size = new System.Drawing.Size(100, 100);
@@ -38,7 +38,7 @@ namespace JetpackGame
         {
             if(Top > 0)
             {
-                Top -= 20;
+                Top -= 25;
                 Fuel--;
             }
         }
@@ -46,7 +46,7 @@ namespace JetpackGame
         {
             if(Top < 800)
             {
-                Top += 4;
+                Top += 3;
             }
         }
         public void IncreaseHealth()

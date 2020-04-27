@@ -120,7 +120,7 @@
     <None Include="Resources\SpikeNew.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Token.png" />
+    <None Include="Resources\Retro-Coin-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
