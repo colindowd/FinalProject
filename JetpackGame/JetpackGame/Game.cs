@@ -18,10 +18,13 @@ namespace JetpackGame
         private HealthPack HealthPack { get; set; }
         private FuelTank FuelTank { get; set; }
         private Rocket Rocket { get; set; }
-        private Token Token { get; set; }
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         private bool isFlying = false;
         private int score = 0;
+        private int speedChange = 0;
+        private int tokenChange = 0;
+        private int healthChange = 0;
+        private int fuelChange = 0;
 
         public Game()
         {
@@ -39,8 +42,8 @@ namespace JetpackGame
             Controls.Add(Rocket);
             Controls.Add(HealthPack);
             Controls.Add(FuelTank);
-            Player.Fuel = 100;
-            Player.Health = 100;
+            Player.Fuel = 100 + fuelChange;
+            Player.Health = 100 + healthChange;
         }
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -69,7 +72,7 @@ namespace JetpackGame
             }
             for (int i = 0; i < Spikes.Count; i++) //Moves the spikes constantly to the left. 
             {
-                Spikes[i].Left -= 5;
+                Spikes[i].Left -= 5 + speedChange;
                 //for (int j = 0; j < Spikes.Count; j++)
                 //{
                 //    if (Spikes[i].HitTest(Spikes[j].Bounds) == true)
@@ -112,7 +115,7 @@ namespace JetpackGame
             HealthPack.MoveHealthPack();
             if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
             {
-                Player.IncreaseHealth();
+                Player.IncreaseHealth(healthChange);
                 HealthPack.ResetHealth();
             }
             else if (HealthPack.Left <=1)
@@ -123,7 +126,7 @@ namespace JetpackGame
             FuelTank.MoveFuelTank();
             if (FuelTank.HitTest(Player.Bounds) && FuelTank.Visible)
             {
-                Player.IncreaseFuel();
+                Player.IncreaseFuel(fuelChange);
                 FuelTank.ResetFuel();
             }
             else if (FuelTank.Left <= 1)
@@ -131,7 +134,7 @@ namespace JetpackGame
                 FuelTank.ResetFuel();
             }
             //Token
-            int tokenRand = randomGenerator.Next(1, 100);
+            int tokenRand = randomGenerator.Next(1, 100 - tokenChange);
             if (tokenRand == 1)
             {
                 ActivateToken();
@@ -179,7 +182,24 @@ namespace JetpackGame
         }
         private void StartButton_Click(object sender, EventArgs e)
         {
+            CheatCodeTextBox.Hide();
+            CheatCodeLabel.Hide();
             GameTimer.Enabled = true;
+            int codeIndex = CheatCodes(CheatCodeTextBox.Text);
+            if(codeIndex == 0)
+            {
+                speedChange = 10;
+            } else if(codeIndex == 1)
+            {
+                speedChange = -3;
+            } else if(codeIndex == 2)
+            {
+                tokenChange = 95;
+            } else if(codeIndex == 3)
+            {
+                healthChange = 900;
+                fuelChange = 900;
+            }
         }
         public void ActivateToken()
         {
@@ -201,6 +221,18 @@ namespace JetpackGame
             Spikes.Add(spike2);
             Controls.Add(spike2);
             Spikes[Spikes.Count - 1].BottomSpike();
+        }
+        public int CheatCodes(string userCode)
+        {
+            String[] validCodes = { "Speed", "Slow", "Money", "Juggernaut" };
+            for(int i = 0; i < validCodes.Length; i++)
+            {
+                if(userCode == validCodes[i])
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }

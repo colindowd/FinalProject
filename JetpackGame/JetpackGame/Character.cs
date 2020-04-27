@@ -14,8 +14,6 @@ namespace JetpackGame
         public int Fuel { get; set; }
         public int MaxHealth { get; set; }
         public int Health { get; set; }
-        public bool IsEngineRunning { get; set; }
-        public bool IsAlive { get; set; }
 
         public Character()
         {
@@ -29,7 +27,7 @@ namespace JetpackGame
         }
         public void Jump()
         {
-            if(Top == 800)
+            if(Top >= 795)
             {
                 Top -= 250;
             }
@@ -49,21 +47,22 @@ namespace JetpackGame
                 Top += 3;
             }
         }
-        public void IncreaseHealth()
+        public void IncreaseHealth(int healthChange)
         {
-            if(Health > 50)
+            if (Health > 50)
             {
-                Health = MaxHealth;
-            } else
+                Health = MaxHealth + healthChange;
+            }
+            else
             {
                 Health += 50;
             }
         }
-        public void IncreaseFuel()
+        public void IncreaseFuel(int fuelChange)
         {
             if(Fuel > 50)
             {
-                Fuel = FuelCapacity;
+                Fuel = FuelCapacity + fuelChange;
             } else
             {
                 Fuel += 50;
@@ -90,5 +89,6 @@ namespace JetpackGame
                 Health -= 25;
             }
         }
+
     }
 }
