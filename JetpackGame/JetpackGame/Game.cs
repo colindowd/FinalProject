@@ -22,9 +22,6 @@ namespace JetpackGame
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         private bool isFlying = false;
         private int score = 0;
-        
-
-
 
         public Game()
         {
@@ -104,13 +101,12 @@ namespace JetpackGame
             isFlying = false;
             FuelLabel.Text = Player.Fuel.ToString();
             HealthLabel.Text = Player.Health.ToString();
-            if (Player.Health == 0 || Player.Fuel == 0)
+            if (Player.Health == 0 || Player.Fuel == 0) //Ends the game if Fuel or Health reach zero. 
             {
                 GameTimer.Enabled = false;
                 MessageBox.Show("Game Over!");
                 Application.Exit();
             }
-
             //HealthPack
             int healthRand = randomGenerator.Next(1, 1000);
             if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
@@ -145,7 +141,7 @@ namespace JetpackGame
             int tokenRand = randomGenerator.Next(1, 100);
             for (int i = 0; i < Tokens.Count; i++)
             {
-                if (Tokens[i].HitTest(Player.Bounds) == true) //If any laser hits the Enemy, the score goes up, enemy is reset and the laser is removed.
+                if (Tokens[i].HitTest(Player.Bounds) == true) //If any Token hits the Enemy, the score goes up, and the Token is removed.
                 {
                     Tokens[i].Hide();
                     Tokens.Remove(Tokens[i]);
@@ -165,6 +161,8 @@ namespace JetpackGame
             {
                 Token.MoveToken();
             }
+            //Misc
+            ScoreLabel.Text = score.ToString();
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
@@ -172,7 +170,7 @@ namespace JetpackGame
             {
                 switch (keyData)
                 {
-                    case Keys.W:
+                    case Keys.Space:
                         isFlying = true;
                         Player.Fly();
                         return true;
