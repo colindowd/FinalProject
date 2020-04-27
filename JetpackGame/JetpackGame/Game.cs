@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -78,11 +77,18 @@ namespace JetpackGame
             }
             for (int i = 0; i < Spikes.Count; i++)
             {
-                if (Spikes[i].HitTest(Player.Bounds) == true) //If any spike hits the Enemy, the score goes up, enemy is reset and the laser is removed.
+                if (Spikes[i].HitTest(Player.Bounds) == true) 
                 {
                     Spikes[i].Hide();
+                    Controls.Remove(Spikes[i]);
                     Spikes.Remove(Spikes[i]);
                     Player.DamageBySpike();
+                }
+                if (Spikes[i].Left <=1) 
+                {
+                    Spikes[i].Hide();
+                    Controls.Remove(Spikes[1]);
+                    Spikes.Remove(Spikes[i]);
                 }
             }
             //Player
@@ -153,11 +159,11 @@ namespace JetpackGame
                 switch (keyData)
                 {
                     case Keys.Space:
-                        Player.Jump();
                         isFlying = true;
                         Player.Fly();
                         return true;
                     default:
+                        Player.Fall();
                         return true;
                 }
             } else
