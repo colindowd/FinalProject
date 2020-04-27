@@ -35,11 +35,12 @@ namespace JetpackGame
             HealthPack = new HealthPack();
             FuelTank = new FuelTank();
             Rocket = new Rocket(Height, Width);
-            Token = new Token();
             Controls.Add(Player);
             Controls.Add(Rocket);
-            Player.Fuel = 100;
-            Player.Health = 100;
+            Controls.Add(HealthPack);
+            Controls.Add(FuelTank);
+            Player.Fuel = 1000;
+            Player.Health = 1000;
         }
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -86,10 +87,10 @@ namespace JetpackGame
                     Spikes.Remove(Spikes[i]);
                     Player.DamageBySpike();
                 }
-                if (Spikes[i].Left <=1) 
+                else if (Spikes[i].Left <=1) 
                 {
                     Spikes[i].Hide();
-                    Controls.Remove(Spikes[1]); //Why set to 1?
+                    Controls.Remove(Spikes[i]); //Why set to 1?
                     Spikes.Remove(Spikes[i]);
                 }
             }
@@ -108,58 +109,49 @@ namespace JetpackGame
                 Application.Exit();
             }
             //HealthPack
-            int healthRand = randomGenerator.Next(1, 1000);
+            HealthPack.MoveHealthPack();
             if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
             {
                 Player.IncreaseHealth();
-                HealthPack.Hide();
+                HealthPack.ResetHealth();
             }
-            else if (healthRand == 1)
+            else if (HealthPack.Left <=1)
             {
                 HealthPack.ResetHealth();
             }
-            else
-            {
-                HealthPack.MoveHealthPack();
-            }
             //FuelTank
-            int fuelRand = randomGenerator.Next(1, 1000);
+            FuelTank.MoveFuelTank();
             if (FuelTank.HitTest(Player.Bounds) && FuelTank.Visible)
             {
                 Player.IncreaseFuel();
-                FuelTank.Hide();
+                FuelTank.ResetFuel();
             }
-            else if (fuelRand == 1)
+            else if (FuelTank.Left <= 1)
             {
                 FuelTank.ResetFuel();
             }
-            else
-            {
-                FuelTank.MoveFuelTank();
-            }
             //Token
             int tokenRand = randomGenerator.Next(1, 100);
+            if (tokenRand == 1)
+            {
+                ActivateToken();
+            }
             for (int i = 0; i < Tokens.Count; i++)
             {
-                if (Tokens[i].HitTest(Player.Bounds) == true) //If any Token hits the Enemy, the score goes up, and the Token is removed.
+                Tokens[i].MoveToken();
+                if (Tokens[i].HitTest(Player.Bounds) == true)
                 {
                     Tokens[i].Hide();
+                    Controls.Remove(Tokens[i]);
                     Tokens.Remove(Tokens[i]);
                     score++;
                 }
-            }
-            if (Token.HitTest(Player.Bounds) && Token.Visible)
-            {
-                Player.IncreaseFuel();
-                Token.Hide();
-            }
-            else if (fuelRand == 1)
-            {
-                Token.ResetToken();
-            }
-            else
-            {
-                Token.MoveToken();
+                else if (Tokens[i].Left <= 1)
+                {
+                    Tokens[i].Hide();
+                    Controls.Remove(Tokens[i]); //Why set to 1?
+                    Tokens.Remove(Tokens[i]);
+                }
             }
             //Misc
             ScoreLabel.Text = score.ToString();
@@ -186,6 +178,13 @@ namespace JetpackGame
         private void StartButton_Click(object sender, EventArgs e)
         {
             GameTimer.Enabled = true;
+        }
+        public void ActivateToken()
+        {
+            Token token = new Token(Height, Width);
+            Tokens.Add(token);
+            Controls.Add(token);
+            Tokens[Tokens.Count - 1].ResetToken();
         }
         public void ActivateTopSpike()
         {

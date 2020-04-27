@@ -12,11 +12,14 @@ namespace JetpackGame
     public class Token : PictureBox        //Colin Dowd
     {
         public static Random randomGenerator { get; set; }
-        public Token()
+        public Token(int top, int left)
         {
+            top = Top;
+            left = Left;
             randomGenerator = new Random();
-            Top = randomGenerator.Next(0, 661);
-            Left = 1450;
+            Image = Properties.Resources.Token;
+            SizeMode = PictureBoxSizeMode.StretchImage;
+            Size = new System.Drawing.Size(50, 50);
         }
         public void MoveToken()
         {
@@ -29,6 +32,7 @@ namespace JetpackGame
         public void ResetToken()
         {
             randomGenerator = new Random();
+            Show();
             Top = randomGenerator.Next(0, 1000);
             Left = 1500;
         }
