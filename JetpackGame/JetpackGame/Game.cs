@@ -18,7 +18,6 @@ namespace JetpackGame
         private HealthPack HealthPack { get; set; }
         private FuelTank FuelTank { get; set; }
         private Rocket Rocket { get; set; }
-        private Token Token { get; set; }
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         private bool isFlying = false;
         private int score = 0;
