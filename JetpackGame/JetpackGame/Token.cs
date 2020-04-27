@@ -19,7 +19,7 @@ namespace JetpackGame
             randomGenerator = new Random();
             Image = Properties.Resources.Token;
             SizeMode = PictureBoxSizeMode.StretchImage;
-            Size = new System.Drawing.Size(50, 5);
+            Size = new System.Drawing.Size(50, 50);
         }
         public void MoveToken()
         {
