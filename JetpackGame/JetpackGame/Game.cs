@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,14 +13,16 @@ namespace JetpackGame
 {
     public partial class Game : Form //Logan Cole & Colin Dowd
     {
-        private int score = 0;
+        private int score { get; set; }
+        private int health { get; set; }
+        private int fuel { get; set; }
+
         private Character Player { get; set; }
         private List<Spike> Spikes { get; set; }
         private List<Token> Tokens { get; set; }
-        private HealthPack HealthPack { get; set; }
-        private FuelTank FuelTank { get; set; }
+        private List<HealthPack> HealthPacks { get; set; }
+        private List<FuelTank> FuelTanks { get; set; }
         private Rocket Rocket { get; set; }
-        private Token Token { get; set; }
         private static Random randomGenerator = new Random(); //Declares and instantiates the random number generator.
         private bool isFlying = false;
 
@@ -32,12 +35,14 @@ namespace JetpackGame
             Player = new Character();
             Spikes = new List<Spike>();
             Tokens = new List<Token>();
-            HealthPack = new HealthPack();
-            FuelTank = new FuelTank();
+            HealthPacks = new List<HealthPack>();
+            FuelTanks = new List<FuelTank>();
             Rocket = new Rocket(Height, Width);
-            Token = new Token();
             Controls.Add(Player);
             Controls.Add(Rocket);
+            score = 0;
+            health = 100;
+            fuel = 100;
         }
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -49,18 +54,18 @@ namespace JetpackGame
                 Rocket.Hide();
                 Rocket.Shoot();
             }
-            if (Rocket.Left <= 1) //If the rocket reaches the side of the form:
+            if (Rocket.Left <= -100) //If the rocket reaches the side of the form:
             {
                 Rocket.Hide();
                 Rocket.Shoot();
             }
             //Spikes
             int spikeRand = randomGenerator.Next(1, 100);
-            if (spikeRand == 1) 
+            if (spikeRand == 1)
             {
                 ActivateTopSpike();
             }
-            if (spikeRand == 2) 
+            if (spikeRand == 2)
             {
                 ActivateBottomSpike();
             }
@@ -77,17 +82,17 @@ namespace JetpackGame
             }
             for (int i = 0; i < Spikes.Count; i++)
             {
-                if (Spikes[i].HitTest(Player.Bounds) == true) 
+                if (Spikes[i].HitTest(Player.Bounds)) //If any spike hits the Enemy, the score goes up, enemy is reset and the spike is removed.
                 {
                     Spikes[i].Hide();
                     Controls.Remove(Spikes[i]);
                     Spikes.Remove(Spikes[i]);
                     Player.DamageBySpike();
                 }
-                if (Spikes[i].Left <=1) 
+                if (Spikes[i].Left <= -100)
                 {
                     Spikes[i].Hide();
-                    Controls.Remove(Spikes[1]);
+                    Controls.Remove(Spikes[i]);
                     Spikes.Remove(Spikes[i]);
                 }
             }
@@ -99,58 +104,76 @@ namespace JetpackGame
             isFlying = false;
             //HealthPack
             int healthRand = randomGenerator.Next(1, 1000);
-            if (HealthPack.HitTest(Player.Bounds) && HealthPack.Visible)
+            if (healthRand == 1)
             {
-                Player.IncreaseHealth();
-                HealthPack.Hide();
+                ActivateHealth();
             }
-            else if (healthRand == 1)
+            for (int i = 0; i < HealthPacks.Count; i++)
             {
-                HealthPack.ResetHealth();
-            }
-            else
-            {
-                HealthPack.MoveHealthPack();
+                HealthPacks[i].MoveHealthPack();
+                if (HealthPacks[i].HitTest(Player.Bounds) && HealthPacks[i].Visible)
+                {
+                    HealthPacks[i].Hide();
+                    Controls.Remove(HealthPacks[i]);
+                    HealthPacks.Remove(HealthPacks[i]);
+                    health = 100;
+                }
+                if (HealthPacks[i].Left <= -100 && HealthPacks[i] != null)
+                {
+                    HealthPacks[i].Hide();
+                    Controls.Remove(HealthPacks[i]);
+                    HealthPacks.Remove(HealthPacks[i]);
+                }
             }
             //FuelTank
+            FuelLevelLabel.Text = fuel.ToString();
             int fuelRand = randomGenerator.Next(1, 1000);
-            if (FuelTank.HitTest(Player.Bounds) && FuelTank.Visible)
+            if (fuelRand == 1)
             {
-                Player.IncreaseFuel();
-                FuelTank.Hide();
+                ActivateFuel();
             }
-            else if (fuelRand == 1)
+            for (int i = 0; i < FuelTanks.Count; i++)
             {
-                FuelTank.ResetFuel();
-            }
-            else
-            {
-                HealthPack.MoveHealthPack();
+                FuelTanks[i].MoveFuelTank();
+                if (FuelTanks[i].HitTest(Player.Bounds) && FuelTanks[i].Visible)
+                {
+                    FuelTanks[i].Hide();
+                    FuelTanks.Remove(FuelTanks[i]);
+                    Controls.Remove(FuelTanks[i]);
+                    fuel = 100;
+                }
+                if (FuelTanks[i].Left <= -100)
+                {
+                    FuelTanks[i].Hide();
+                    Controls.Remove(FuelTanks[i]);
+                    FuelTanks.Remove(FuelTanks[i]);
+                }
             }
             //Token
+            ScoreLevelLabel.Text = score.ToString();
             int tokenRand = randomGenerator.Next(1, 100);
+            if (tokenRand == 1)
+            {
+                ActivateToken();
+            }
             for (int i = 0; i < Tokens.Count; i++)
             {
-                if (Tokens[i].HitTest(Player.Bounds) == true) //If any laser hits the Enemy, the score goes up, enemy is reset and the laser is removed.
+                Tokens[i].MoveToken();
+                if (Tokens[i].HitTest(Player.Bounds) && FuelTanks[i].Visible)
                 {
                     Tokens[i].Hide();
                     Tokens.Remove(Tokens[i]);
+                    Controls.Remove(Tokens[i]);
                     score++;
                 }
+                if (Tokens[i].Left <= -100 && HealthPacks[i] != null)
+                {
+                    Tokens[i].Hide();
+                    Controls.Remove(Tokens[i]);
+                    Tokens.Remove(Tokens[i]);
+                }
             }
-            if (Token.HitTest(Player.Bounds) && Token.Visible)
-            {
-                Player.IncreaseFuel();
-                Token.Hide();
-            }
-            else if (fuelRand == 1)
-            {
-                Token.ResetToken();
-            }
-            else
-            {
-                Token.MoveToken();
-            }
+
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
@@ -159,14 +182,23 @@ namespace JetpackGame
                 switch (keyData)
                 {
                     case Keys.Space:
-                        isFlying = true;
-                        Player.Fly();
+                        if (fuel > 0)
+                        {
+                            Player.Jump();
+                            isFlying = true;
+                            Player.Fly();
+                            fuel--;
+                        }
+                        else
+                        {
+                            Player.Jump();
+                        }
                         return true;
                     default:
-                        Player.Fall();
                         return true;
                 }
-            } else
+            }
+            else
             {
                 return false;
             }
@@ -188,6 +220,27 @@ namespace JetpackGame
             Spikes.Add(spike2);
             Controls.Add(spike2);
             Spikes[Spikes.Count - 1].BottomSpike();
+        }
+        public void ActivateToken()
+        {
+            Token token1 = new Token();
+            Tokens.Add(token1);
+            Controls.Add(token1);
+            Tokens[Tokens.Count - 1].ResetToken();
+        }
+        public void ActivateHealth()
+        {
+            HealthPack health1 = new HealthPack();
+            HealthPacks.Add(health1);
+            Controls.Add(health1);
+            HealthPacks[HealthPacks.Count - 1].ResetHealth();
+        }
+        public void ActivateFuel()
+        {
+            FuelTank fuel1 = new FuelTank();
+            FuelTanks.Add(fuel1);
+            Controls.Add(fuel1);
+            FuelTanks[FuelTanks.Count - 1].ResetFuel();
         }
     }
 }

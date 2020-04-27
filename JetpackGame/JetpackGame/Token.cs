@@ -15,8 +15,11 @@ namespace JetpackGame
         public Token()
         {
             randomGenerator = new Random();
-            Top = randomGenerator.Next(0, 661);
-            Left = 1450;
+            Top = randomGenerator.Next(0, 900);
+            Left = 2000;
+            Image = Properties.Resources.Token;
+            SizeMode = PictureBoxSizeMode.StretchImage;
+            Size = new System.Drawing.Size(40, 40);
         }
         public void MoveToken()
         {
@@ -29,8 +32,9 @@ namespace JetpackGame
         public void ResetToken()
         {
             randomGenerator = new Random();
-            Top = randomGenerator.Next(0, 1000);
+            Top = randomGenerator.Next(0, 800);
             Left = 1500;
+            Show();
         }
     }
 }
